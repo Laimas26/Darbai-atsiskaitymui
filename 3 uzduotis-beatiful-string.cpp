@@ -1,6 +1,6 @@
 /******************************************************************************
 
-                             Pirmasis darbas
+                             Treciasis darbas
 
 Uzduotis: https://codeforces.com/problemset/problem/1265/A
                              
