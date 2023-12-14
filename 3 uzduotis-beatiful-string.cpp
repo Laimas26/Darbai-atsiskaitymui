@@ -7,47 +7,52 @@ Uzduotis: https://codeforces.com/problemset/problem/1265/A
 *******************************************************************************/
 using namespace std;
 
-#include <set>;
+#include <vector>;
 #include <iostream>
 
-int boyOrGirl(set<char> disChar) {
-    // 
-    int res;
-    if (disChar.size() % 2 == 0)
-        res = 1;
-    else
-        res = 0;
 
-    return res;
-}
+string createBeautifulString(const string& s) {
+    string beautifulString = s;
 
-set<char> distinctCharacters(string name)
-{
-    set<char> distinctChars(name.begin(), name.end());
+    for (int i = 0; i < beautifulString.size(); ++i) {
+        if (beautifulString[i] == '?') {
+            // '?' pakeitimas i raides 'a', 'b', ir 'c'
+            for (char ch = 'a'; ch <= 'c'; ++ch) {
+                // Patikrinamas ar vis dar tekstas 'grazus'
+                if (i == 0 || ch != beautifulString[i - 1]) {
+                    // Tikrinamas character su sekanciu, ar toks pats ar ne
+                    if (i == beautifulString.size() - 1 || ch != beautifulString[i + 1]) {
+                        beautifulString[i] = ch;
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
-    return distinctChars;
-}
+    // Patikrinti ar tekstas 'grazus'
+    for (int i = 0; i < beautifulString.size() - 1; ++i) {
+        if (beautifulString[i] == beautifulString[i + 1]) {
+            return "-1";  // 'Negrazaus teksto rezultatas
+        }
+    }
 
-void printResult(int result)
-{
-    if (result == 1)
-        cout << "CHAT WITH HER!" << endl;
-    else
-        cout << "IGNORE HIM!" << endl;
+    return beautifulString;
 }
 
 int main() {
-    // Nuskaitoma zmogaus ivestis
-    string name;
+    int count;
 
-    cout<<"Iveskite varda: ";
-    cin >> name;
+    cout<<"Iveskite 'strings' kieki: ";
+    cin >> count;
     
-    // Grazina rezultata, 0 = Male, 1 = Female
-    int result = boyOrGirl(distinctCharacters(name));
+    for (int i = 0; i < count; ++i) {
+        string str;
+        cin >> str;
 
-    printResult(result);
-
+        string result = createBeautifulString(str);
+        cout << result << endl;
+    }
 
     return 0;
 }
